@@ -1,0 +1,76 @@
+@startuml
+
+title Class Diagram - Table Order Management Software \n Order Management System
+
+' =======================
+' ORDER MANAGEMENT SYSTEM
+' =======================
+
+class TomsApp {
+    + main(args: String[]): void
+    - run(): void
+}
+
+class MenuLoader {
+    + loadMenu(category: String): List<DishService>
+    - loadFromFile(filePath: String, category: String): List<DishService>
+}
+
+class MenuShower {
+    + showMenu(menu: List<? extends DishService>): void
+}
+
+class DishSelector {
+    + chooseDishes(menu: List<? extends DishService>, scanner: Scanner): List<DishService>
+}
+
+class AppendToOrder {
+    + addOrder(filePath: String, chosenDishes: List<? extends DishService>): void
+}
+
+class TablesBrowser <<utility>> {
+    - {static} refresh(): void
+    + {static} listTables(): void
+    + {static} enterTable(tableID: int): void
+    + {static} closeTable(id: int): void
+}
+
+class AppConfig <<utility>> {
+    + menuDirectory(): String
+    + tablesDirectory(): String
+}
+
+class InputValidator <<utility>> {
+    + validateTableId(tableId: int): int
+    + validatePeopleCount(people: int): int
+}
+
+class LoggingConfig <<utility>> {
+    + loggingSetup(): void
+}
+
+interface DishService
+
+TomsApp --> MenuLoader
+TomsApp --> MenuShower
+TomsApp --> DishSelector
+TomsApp --> AppendToOrder
+TomsApp --> TablesBrowser
+TomsApp ..> InputValidator : validates input with >
+TomsApp ..> LoggingConfig
+
+MenuLoader ..> AppConfig
+MenuLoader ----> DishService
+DishSelector ---> DishService
+AppendToOrder --> DishService
+MenuShower ---> DishService
+
+note bottom of TomsApp
+  Exception Shielding boundary: every
+  TomsException is caught in main, its
+  safe message is shown and the detail
+  stays in the log files. No stack trace
+  ever reaches the user.
+end note
+
+@enduml

@@ -1,0 +1,7 @@
+Soft Drinks;3.00
+Beer;5.00
+Wine;5.00
+Water;3.00
+Fresh Juice;4.00
+Tea;4.00
+Coffee;3.00

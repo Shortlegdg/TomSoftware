@@ -1,0 +1,4 @@
+House Salad;6.50
+Fries;5.00
+Coleslaw;5.00
+Pepper potatoes;5.50

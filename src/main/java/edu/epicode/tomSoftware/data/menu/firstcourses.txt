@@ -1,0 +1,5 @@
+Lasagna;7.00
+Carbonara Pasta;7.50
+Mac 'n Cheese;8.00
+Seafood Paella;9.00
+Mushroom Risotto;10.00

@@ -1,0 +1,71 @@
+@startuml
+
+title Class Diagram - Table Order Management Software \n Dish Factory Component
+
+
+' =======================
+' DISH FACTORY COMPONENTS
+' =======================
+
+interface DishService {
+    + getName(): String
+    + getPrice(): double
+    + getCategory(): String
+    + getStation(): Station
+}
+
+abstract class Dish {
+    - category: String
+    - name: String
+    - price: double
+    + getName(): String
+    + getPrice(): double
+    + getCategory(): String
+    + toString(): String
+}
+
+class Course {
+    + getStation(): Station
+}
+
+class Drink {
+    + getStation(): Station
+}
+
+class Dessert {
+    + getStation(): Station
+}
+
+enum Station {
+    KITCHEN
+    BAR
+    PASTRY
+}
+
+class DishFactory <<utility>> {
+    + createDish(category: String, line: String): DishService
+}
+
+class InputValidator <<utility>> {
+    + sanitizeText(raw: String): String
+    + parsePrice(raw: String): double
+}
+
+DishService <|.. Dish
+Dish <|-- Course
+Dish <|-- Drink
+Dish <|-- Dessert
+
+DishService --> Station
+
+DishFactory ..> DishService : creates >
+DishFactory ..> InputValidator : validates with >
+
+note bottom of DishFactory
+  The client only ever sees DishService.
+  The concrete class is chosen here, so a
+  new kind of dish requires no change in
+  the code that uses it.
+end note
+
+@enduml

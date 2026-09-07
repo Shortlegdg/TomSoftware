@@ -1,0 +1,5 @@
+Beef Steak;9.00
+Roast Beef;9.50
+Grilled Salmon;11.00
+Fried Chicken;9.00
+Fish Tacos;10.00

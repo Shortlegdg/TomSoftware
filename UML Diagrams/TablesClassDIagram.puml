@@ -1,0 +1,68 @@
+@startuml
+
+title Class Diagram - Table Order Management Software \n Tables Composite Components
+
+' ===========================
+' TABLES COMPOSITE COMPONENTS
+' ===========================
+
+abstract class MenuComponent {
+    + add(dish: MenuComponent): void
+    + {abstract} getTotal(): double
+    + print(): void
+}
+
+class TableOrder <<leaf>> {
+    - order: String
+    - price: double
+    + {static} fromLine(line: String): TableOrder
+    + getTotal(): double
+    + print(): void
+}
+
+class TableComposite <<composite>> {
+    - tableID: String
+    - lines: List<MenuComponent>
+    + add(dish: MenuComponent): void
+    + getTotal(): double
+    + print(): void
+}
+
+interface "Repository<K, T>" as Repository {
+    + exists(id: K): boolean
+    + findById(id: K): T
+    + deleteById(id: K): boolean
+}
+
+interface "Aggregate<T>" as Aggregate {
+    + createIterator(): Iterator<T>
+}
+
+class TableMapCollection {
+    - tablesMap: Map<Integer, MenuComponent>
+    - loadTables(): void
+    + getOpenedTables(): void
+    + closeTable(id: int): boolean
+}
+
+class TomsException extends Exception {
+}
+
+MenuComponent <|-- TableOrder
+MenuComponent <|-- TableComposite
+
+Repository <|.. TableMapCollection
+Aggregate <|.. TableMapCollection
+
+TableMapCollection --> TableComposite : manages >
+TableComposite o--> "0..*" MenuComponent : contains >
+TableMapCollection ..> TomsException : throws >
+
+note right of TableComposite::getTotal
+  Recursive sum over the children.
+  A leaf answers with its own price,
+  so the caller never needs to know
+  which kind of node it is holding.
+end note
+
+@enduml
