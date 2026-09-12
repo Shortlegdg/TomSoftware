@@ -214,12 +214,12 @@ IntelliJ.
 ___
 ### ✔ DISH FACTORY COMPONENTS
 ___
-![img.png](UML Diagrams/img.png)
+![img.png](UML%20Diagrams/img.png)
 ___
 ### ✔ ORDER MANAGEMENT SYSTEM
 ___
-![img_1.png](UML Diagrams/img_1.png)
+![img_1.png](UML%20Diagrams/img_1.png)
 ___
 ### ✔ TABLES COMPOSITE COMPONENTS
 ___
-![img_2.png](UML Diagrams/img_2.png)
+![img_2.png](UML%20Diagrams/img_2.png)
