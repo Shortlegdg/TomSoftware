@@ -68,7 +68,7 @@ public class TomsApp {
 
         while (menuChoice != 0) {
 
-            if (menuChoice > 4) {
+            if (menuChoice < 0 || menuChoice > 4) {
                 System.out.println("Invalid Input! Try again");
                 m.mainMenu();
 
@@ -91,16 +91,28 @@ public class TomsApp {
 
                     continue;
 
-                }else {
-                    int tableID = InputValidator.validateTableId(waiterInput);
+                } else {
+                    int tableID = -1;
+                    while (tableID < 0) {
+                        try {
+                            tableID = InputValidator.validateTableId(waiterInput);
+                        } catch (TomsException e) {
+                            System.out.println(e.getMessage());
+                            waiterInput = ConsoleInput.readInt(scanner);
+                        }
+                    }
+
                     System.out.println("\nTableID: " + tableID + " created successfully!");
                     System.out.println("\nIndicate the number of people seating this table: ");
 
-                    int peopleNumber; //Indicating how many people are sitting to this table
-
-                    peopleNumber = InputValidator.validatePeopleCount(ConsoleInput.readInt(scanner));
-                    TableWriter.createTableFile(tableID, peopleNumber); //Table opening and file creation
-                }
+                    int peopleNumber = -1;
+                    while (peopleNumber < 0) {
+                        try {
+                            peopleNumber = InputValidator.validatePeopleCount(ConsoleInput.readInt(scanner));
+                        } catch (TomsException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
 
                 m.subMenu();
                 menuChoice = ConsoleInput.readInt(scanner);
