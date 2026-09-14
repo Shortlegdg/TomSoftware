@@ -73,6 +73,7 @@ public class TomsApp {
                 m.mainMenu();
 
                 menuChoice = ConsoleInput.readInt(scanner);
+                continue;
             }
 
             if (menuChoice == 1) { //Menù to open a new table and creating its own file
@@ -113,6 +114,9 @@ public class TomsApp {
                             System.out.println(e.getMessage());
                         }
                     }
+
+                    TableWriter.createTableFile(tableID, peopleNumber);
+                }
 
                 m.subMenu();
                 menuChoice = ConsoleInput.readInt(scanner);
